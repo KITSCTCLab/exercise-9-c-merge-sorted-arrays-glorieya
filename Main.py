@@ -1,30 +1,40 @@
 from typing import List
 
-def partition(arr, l, r):
-    #Function implementing partitioning of sub-array arr[l:r]
-    #Return: -> index of pivot
-    p, curr = l, l + 1
-    while curr <= r:
-        if arr[curr] <= arr[l]:
-            p += 1
-            arr[p], arr[curr] = arr[curr], arr[p]
-        curr += 1
-    arr[p], arr[l] = arr[l], arr[p]
-    return p
+def merge(nums1: List[int], m: int, nums2: List[int], n: int) -> None:
+  #Function implementing merging of two sorted arrays
+  #Input: nums1 -> array
+  #       m -> number of elements of nums1
+  #       nums2 -> array
+  #       n -> number of elements of nums2
+  l1 = nums1[:]
+  l2 = nums2[:]
+  curr, i, j = 0, 0, 0
+  while i < m and j < n:
+    if l1[i] < l2[j]:
+      nums1[curr] = l1[i]
+      i += 1
+    else:
+      nums1[curr] = l2[j]
+      j += 1
+    curr += 1
+  while i < m:
+    nums1[curr] = l1[i]
+    curr += 1
+    i += 1
+  while j < n:
+    nums1[curr] = l2[j]
+    curr += 1
+    j += 1
 
-def quick_sort(data, l, r) -> List[int]:
-     #Function implementing in-place quick sort of data[l:r]
-    if l < r:
-        p = partition(data, l, r)
-        quick_sort(data, l, p - 1)
-        quick_sort(data, p + 1, r)
-    return data
 
-input_data = input()
-data = []
-for item in input_data.split(', '):
-  if item.isnumeric():
-    data.append(int(item))
-  elif item.lstrip("-").isnumeric():
-    data.append(int(item))
-print(quick_sort(data, 0, len(data)-1))
+# Do noT change the following code
+nums1 = []
+nums2 = []
+for item in input().split(', '):
+  nums1.append(int(item))
+for item in input().split(', '):
+  nums2.append(int(item))
+m = int(input())
+n = int(input())
+merge(nums1, m, nums2, n)
+print(nums1)
